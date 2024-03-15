@@ -2,7 +2,7 @@
 import qrcode
 
 # QRコードにするデータ
-data = "https://towakuri.github.io/chat/"
+data = "https://"
 
 # QRコードの生成
 qr = qrcode.QRCode(
