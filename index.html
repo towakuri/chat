@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Chat</title>
+</head>
+<body>
+    <h1>Simple Chat</h1>
+    <div id="chat"></div>
+    <input type="text" id="message" placeholder="Type your message here...">
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        function sendMessage() {
+            var message = document.getElementById('message').value;
+            var chatDiv = document.getElementById('chat');
+            chatDiv.innerHTML += '<p>You: ' + message + '</p>';
+            document.getElementById('message').value = '';
+
+            // Send message to bot and get response
+            fetch('/get_bot_reply', {
+                method: 'POST',
+                body: new URLSearchParams({ 'message': message })
+            })
+            .then(response => response.text())
+            .then(data => {
+                chatDiv.innerHTML += '<p>Bot: ' + data + '</p>';
+            });
+        }
+    </script>
+</body>
+</html>
