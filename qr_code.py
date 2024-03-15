@@ -2,7 +2,7 @@
 import qrcode
 
 # QRコードにするデータ
-data = "file:///Users/az299/Desktop/towa_practice/webchat/templates/index.html"
+data = "https://towakuri.github.io/chat/"
 
 # QRコードの生成
 qr = qrcode.QRCode(
