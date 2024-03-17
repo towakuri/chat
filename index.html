@@ -10,22 +10,25 @@
     <button onclick="sendMessage()">Send</button>
 
     <script>
-        function sendMessage() {
-            var message = document.getElementById('message').value;
-            var chatDiv = document.getElementById('chat');
-            chatDiv.innerHTML += '<p>You: ' + message + '</p>';
-            document.getElementById('message').value = '';
+    function sendMessage() {
+        var message = document.getElementById('message').value;
+        var chatDiv = document.getElementById('chat');
+        chatDiv.innerHTML += '<p>You: ' + message + '</p>';
+        document.getElementById('message').value = '';
 
-            // Send message to bot and get response
-            fetch('/get_bot_reply', {
-                method: 'POST',
-                body: new URLSearchParams({ 'message': message })
-            })
-            .then(response => response.text())
-            .then(data => {
-                chatDiv.innerHTML += '<p>Bot: ' + data + '</p>';
-            });
-        }
-    </script>
+        fetch('/get_bot_reply', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',  // コンテントタイプを指定
+            },
+            body: new URLSearchParams({ 'message': message })
+        })
+        .then(response => response.json())  // JSON形式のレスポンスを受け取る
+        .then(data => {
+            chatDiv.innerHTML += '<p>Bot: ' + data.reply + '</p>';  // JSONから返信内容を取得して表示
+        });
+    }
+</script>
+
 </body>
 </html>
